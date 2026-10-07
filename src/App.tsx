@@ -3,11 +3,8 @@ import { TelemetryBar } from './components/TelemetryBar';
 import { Navbar } from './components/Navbar';
 import { CommandPalette } from './components/CommandPalette';
 import { Hero } from './sections/Hero';
-import { About } from './sections/About';
+import { InsideTheContainerSection } from './sections/InsideTheContainerSection';
 import { ProjectsSection } from './sections/ProjectsSection';
-import { ArchitectureSection } from './sections/ArchitectureSection';
-import { ContainerStackSection } from './sections/ContainerStackSection';
-import { SkillsSection } from './sections/SkillsSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { EducationSection } from './sections/EducationSection';
 import { ContactSection } from './sections/ContactSection';
@@ -26,31 +23,22 @@ export const App: React.FC = () => {
 
       {/* Main Containerized Content Pipeline */}
       <main id="main-content" className="flex-1">
-        {/* Section 00: Hero & Architectural Docker Whale */}
+        {/* Section 00: Hero (Who is this developer?) */}
         <Hero />
 
-        {/* Section 01: Inside the Container (About) */}
-        <About />
+        {/* Section 01: Inside the Container & Technical Stack (What technologies build him?) */}
+        <InsideTheContainerSection />
 
-        {/* Section 02: Container Registry (Projects Showcase) */}
+        {/* Section 02: Deployed Systems & Projects Registry (What has he built?) */}
         <ProjectsSection />
 
-        {/* Section 03: Service Architecture & Topology */}
-        <ArchitectureSection />
-
-        {/* Section 04: Container Stack Hierarchy */}
-        <ContainerStackSection />
-
-        {/* Section 05: Tech Stack & Available Images */}
-        <SkillsSection />
-
-        {/* Section 06: Production Deployments & Experience */}
+        {/* Section 03: Production Deployments & Experience */}
         <ExperienceSection />
 
-        {/* Section 07: Academic Foundations & Route Academy Certification */}
+        {/* Section 04: Academic Foundations & Route Academy Certification */}
         <EducationSection />
 
-        {/* Section 08: Deploy to Production (Contact) */}
+        {/* Section 05: Deploy to Production (Contact) */}
         <ContactSection />
       </main>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SectionHeading } from '../components/SectionHeading';
 import { projectsData } from '../data/projects';
 import { AlAlamiaFlowDiagram } from '../components/AlAlamiaFlowDiagram';
-import { ClinicDrumPreview } from '../components/ClinicDrumPreview';
+import { ClinicScreenshotDeck } from '../components/ClinicScreenshotDeck';
 import { ClinicGalleryModal } from '../components/ClinicGalleryModal';
 import { ApiEndpointSimulator } from '../components/ApiEndpointSimulator';
 import { PipelineBridge } from '../components/PipelineBridge';
@@ -289,34 +289,10 @@ export const ProjectsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Mirrored Horizontal Layout: Screenshots Preview & Specs */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                  <div className="lg:col-span-6 space-y-3">
-                    <ClinicDrumPreview
-                      images={clinic.images || []}
-                      onOpenModal={handleOpenClinicModal}
-                    />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans">
-                      <div className="bg-docker-charcoal/80 border border-docker-border rounded-lg p-3">
-                        <strong className="text-status-ready font-mono text-[11px] block mb-1">
-                          HOW THE DAY RUNS:
-                        </strong>
-                        <p className="text-docker-muted text-[11px] leading-relaxed">
-                          Front-desk, treatment staff, and admins share one timeline with real-time status tracking.
-                        </p>
-                      </div>
-                      <div className="bg-docker-charcoal/80 border border-docker-border rounded-lg p-3">
-                        <strong className="text-docker-bright font-mono text-[11px] block mb-1">
-                          ADMINISTRATIVE VALUE:
-                        </strong>
-                        <p className="text-docker-muted text-[11px] leading-relaxed">
-                          Zero session over-redemption through database constraints and package ledger accounting.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:col-span-6 space-y-3 font-sans">
+                {/* Two-Part Layout: Left = Project Information, Right = Screenshot Deck */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Left Column: Project Information & Architectural Specs */}
+                  <div className="lg:col-span-6 space-y-4 font-sans">
                     <div className="bg-docker-charcoal/80 border border-docker-border rounded-xl p-5 space-y-3">
                       <h4 className="text-sm font-mono uppercase text-status-ready font-bold flex items-center gap-2">
                         <Activity className="w-4 h-4" />
@@ -331,6 +307,9 @@ export const ProjectsSection: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-docker-muted px-1">
+                        Clinical Platform Submodules
+                      </div>
                       {clinic.keyFeatures.map((feat, idx) => (
                         <div
                           key={idx}
@@ -356,11 +335,40 @@ export const ProjectsSection: React.FC = () => {
                       {clinic.technologies.map((t) => (
                         <span
                           key={t}
-                          className="bg-docker-surface text-docker-white px-2 py-0.5 rounded border border-docker-border text-[11px]"
+                          className="bg-docker-surface text-docker-white px-2.5 py-0.5 rounded border border-docker-border text-[11px]"
                         >
                           {t}
                         </span>
                       ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans pt-1">
+                      <div className="bg-docker-charcoal/80 border border-docker-border rounded-lg p-3">
+                        <strong className="text-status-ready font-mono text-[11px] block mb-1">
+                          OPERATIONAL TIMELINE:
+                        </strong>
+                        <p className="text-docker-muted text-[11px] leading-relaxed">
+                          Front-desk, treatment staff, and admins share one synchronized timeline with live status tracking.
+                        </p>
+                      </div>
+                      <div className="bg-docker-charcoal/80 border border-docker-border rounded-lg p-3">
+                        <strong className="text-docker-bright font-mono text-[11px] block mb-1">
+                          LEDGER ACCURACY:
+                        </strong>
+                        <p className="text-docker-muted text-[11px] leading-relaxed">
+                          Zero session over-redemption through strict referential integrity and quota deductions.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Interactive UI Screenshot Deck */}
+                  <div className="lg:col-span-6 space-y-3">
+                    <div className="bg-docker-charcoal/70 border border-docker-border rounded-2xl p-4 sm:p-5 shadow-container">
+                      <ClinicScreenshotDeck
+                        images={clinic.images || []}
+                        onOpenModal={handleOpenClinicModal}
+                      />
                     </div>
                   </div>
                 </div>
@@ -477,11 +485,11 @@ export const ProjectsSection: React.FC = () => {
           images={clinic.images || []}
         />
 
-        {/* Transition Bridge to Container Stack */}
+        {/* Transition Bridge to Experience Deployments */}
         <PipelineBridge
           currentStage="REGISTRY_VERIFIED"
-          nextStage="CONTAINER_STACK"
-          description="Inspecting layered infrastructure hierarchy"
+          nextStage="DEPLOYMENT_PIPELINE"
+          description="Transitioning to production freelance deployment stages"
         />
       </div>
     </section>
