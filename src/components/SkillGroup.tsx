@@ -29,7 +29,6 @@ import {
   Code,
   Palette,
   Search,
-  Sparkles,
   LucideIcon,
 } from 'lucide-react';
 
@@ -84,94 +83,99 @@ export const SkillGroup: React.FC = () => {
   });
 
   return (
-    <div className="w-full space-y-8">
+    <div className="w-full space-y-6">
       {/* Search and Category Filters */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-6 border-b border-carbon-800">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-6 border-b border-docker-border font-mono text-xs">
         {/* Category Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0">
           <button
             onClick={() => setSelectedCategoryId('all')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors whitespace-nowrap focus:outline-none ${
+            className={`px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap focus:outline-none ${
               selectedCategoryId === 'all'
-                ? 'bg-azure-600 text-white shadow-sm'
-                : 'bg-carbon-900 text-slate-400 hover:text-white hover:bg-carbon-850 border border-carbon-800'
+                ? 'bg-docker-blue text-white border-docker-blue shadow-docker-glow'
+                : 'bg-docker-surface text-docker-muted border-docker-border hover:text-docker-white'
             }`}
           >
-            All Disciplines ({allSkills.length})
+            ALL_IMAGES ({allSkills.length})
           </button>
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategoryId(cat.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors whitespace-nowrap focus:outline-none ${
+              className={`px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap focus:outline-none ${
                 selectedCategoryId === cat.id
-                  ? 'bg-azure-600 text-white shadow-sm'
-                  : 'bg-carbon-900 text-slate-400 hover:text-white hover:bg-carbon-850 border border-carbon-800'
+                  ? 'bg-docker-blue text-white border-docker-blue shadow-docker-glow'
+                  : 'bg-docker-surface text-docker-muted border-docker-border hover:text-docker-white'
               }`}
             >
-              {cat.label} ({cat.skills.length})
+              {cat.label.toUpperCase()} ({cat.skills.length})
             </button>
           ))}
         </div>
 
         {/* Search Input */}
         <div className="relative min-w-[240px]">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-docker-muted absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search skills or patterns..."
-            className="w-full bg-carbon-900 border border-carbon-700/80 rounded-lg pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-azure-500"
+            placeholder="docker search image..."
+            className="w-full bg-docker-charcoal border border-docker-border rounded-lg pl-9 pr-4 py-2 text-xs text-docker-white placeholder-docker-muted/60 focus:outline-none focus:border-docker-blue"
           />
         </div>
       </div>
 
-      {/* Skills Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Available Images Grid (Container Style) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         {filteredSkills.map((skill) => {
           const IconComponent = ICON_MAP[skill.icon] || Code2;
 
           return (
             <div
               key={skill.id}
-              className={`group relative rounded-xl p-4 transition-all duration-200 border ${
+              className={`group relative rounded-xl p-4 transition-all duration-200 border flex flex-col justify-between ${
                 skill.isFeatured
-                  ? 'bg-carbon-900/90 border-carbon-700 hover:border-azure-500/60 shadow-sm hover:shadow-glow-sm'
-                  : 'bg-carbon-900/60 border-carbon-800/80 hover:border-carbon-700 hover:bg-carbon-850/60'
+                  ? 'bg-docker-surface border-docker-blue/40 hover:border-docker-blue shadow-sm hover:shadow-docker-glow'
+                  : 'bg-docker-surface/70 border-docker-border hover:border-docker-borderBright hover:bg-docker-surface'
               }`}
             >
-              <div className="flex items-start justify-between mb-3">
-                <div
-                  className={`p-2.5 rounded-lg ${
-                    skill.isFeatured
-                      ? 'bg-azure-950/70 border border-azure-500/30 text-azure-400 group-hover:bg-azure-900/70'
-                      : 'bg-carbon-850 border border-carbon-800 text-slate-400 group-hover:text-azure-400 group-hover:border-carbon-700'
-                  } transition-colors`}
-                >
-                  <IconComponent className="w-5 h-5" />
+              <div>
+                {/* Image Top Bar */}
+                <div className="flex items-start justify-between mb-2.5">
+                  <div
+                    className={`p-2 rounded-lg ${
+                      skill.isFeatured
+                        ? 'bg-docker-charcoal border border-docker-blue/40 text-docker-bright'
+                        : 'bg-docker-charcoal border border-docker-border text-docker-muted group-hover:text-docker-bright'
+                    } transition-colors`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                  </div>
+
+                  <span className="font-mono text-[9px] px-2 py-0.5 rounded font-semibold text-status-running bg-emerald-950/40 border border-status-running/30 flex items-center gap-1">
+                    <span className="w-1 h-1 rounded-full bg-status-running" />
+                    IMAGE READY
+                  </span>
                 </div>
 
-                {skill.isFeatured && (
-                  <span className="flex items-center gap-1 font-mono text-[10px] text-amber-400/90 bg-amber-950/40 border border-amber-500/20 px-2 py-0.5 rounded">
-                    <Sparkles className="w-2.5 h-2.5" /> Core
-                  </span>
+                {/* Technology Name */}
+                <h4 className="text-sm font-semibold text-docker-white group-hover:text-docker-bright transition-colors font-sans">
+                  {skill.label}
+                </h4>
+
+                {/* Description */}
+                {skill.description && (
+                  <p className="text-xs text-docker-muted mt-1 leading-relaxed line-clamp-2 font-sans">
+                    {skill.description}
+                  </p>
                 )}
               </div>
 
-              <h4 className="text-sm font-semibold text-white group-hover:text-azure-300 transition-colors">
-                {skill.label}
-              </h4>
-
-              {skill.description && (
-                <p className="text-xs text-slate-400 mt-1.5 leading-relaxed line-clamp-2">
-                  {skill.description}
-                </p>
-              )}
-
-              <div className="mt-3 pt-2.5 border-t border-carbon-850 flex items-center justify-between text-[10px] font-mono text-slate-500">
+              {/* Bottom Image Metadata */}
+              <div className="mt-3 pt-2.5 border-t border-docker-border flex items-center justify-between text-[10px] font-mono text-docker-muted">
                 <span>{skill.categoryLabel}</span>
-                <span className="group-hover:text-azure-400 transition-colors">.NET 8 Ecosystem</span>
+                <span className="text-docker-bright group-hover:underline">sha256:ready</span>
               </div>
             </div>
           );
@@ -179,16 +183,16 @@ export const SkillGroup: React.FC = () => {
       </div>
 
       {filteredSkills.length === 0 && (
-        <div className="py-12 text-center bg-carbon-900/40 rounded-xl border border-carbon-800">
-          <p className="text-slate-400 text-sm">No technologies match "{searchQuery}"</p>
+        <div className="py-12 text-center bg-docker-charcoal rounded-xl border border-docker-border font-mono text-xs">
+          <p className="text-docker-muted">No images found matching "{searchQuery}"</p>
           <button
             onClick={() => {
               setSearchQuery('');
               setSelectedCategoryId('all');
             }}
-            className="mt-3 text-xs font-mono text-azure-400 hover:underline"
+            className="mt-2 text-docker-bright hover:underline"
           >
-            Reset Filters
+            Reset Search Filters
           </button>
         </div>
       )}

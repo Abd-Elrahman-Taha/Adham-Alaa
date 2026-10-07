@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Maximize2, Layers } from 'lucide-react';
+import { Maximize2, Layers, Box } from 'lucide-react';
 
 interface ClinicDrumPreviewProps {
   images: string[];
@@ -13,7 +13,7 @@ export const ClinicDrumPreview: React.FC<ClinicDrumPreviewProps> = ({ images, on
   return (
     <div
       onClick={() => onOpenModal(activeLayer)}
-      className="group relative cursor-pointer select-none rounded-2xl bg-carbon-900 border border-carbon-700/80 p-5 md:p-6 overflow-hidden shadow-panel hover:border-azure-500/50 hover:shadow-glow-azure transition-all duration-300"
+      className="group relative cursor-pointer select-none rounded-2xl bg-docker-charcoal border border-docker-border p-4 md:p-6 overflow-hidden shadow-container hover:border-docker-blue/60 hover:shadow-docker-glow transition-all duration-300"
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
@@ -25,26 +25,22 @@ export const ClinicDrumPreview: React.FC<ClinicDrumPreviewProps> = ({ images, on
       aria-label="Inspect Clinic Management Screenshots Gallery"
     >
       {/* Top Bar inside card */}
-      <div className="flex items-center justify-between pb-4 border-b border-carbon-800">
+      <div className="flex items-center justify-between pb-3.5 border-b border-docker-border">
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-          </div>
-          <span className="font-mono text-xs text-slate-400 ml-2">
-            clinic-dashboard-v1.4.app
+          <Box className="w-3.5 h-3.5 text-docker-blue" />
+          <span className="font-mono text-xs text-docker-white">
+            CONTAINER_PREVIEW // clinic-ui:prod
           </span>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 font-mono text-xs text-azure-400 bg-azure-950/60 border border-azure-500/30 px-2.5 py-1 rounded group-hover:bg-azure-900/60 transition-colors">
+        <span className="inline-flex items-center gap-1.5 font-mono text-xs text-docker-bright bg-docker-blue/15 border border-docker-blue/30 px-2.5 py-1 rounded group-hover:bg-docker-blue/25 transition-colors">
           <Maximize2 className="w-3.5 h-3.5" />
           <span>Inspect 10 Views</span>
         </span>
       </div>
 
       {/* Perspective Stack Visualization */}
-      <div className="relative my-6 h-60 sm:h-72 w-full flex items-center justify-center perspective-[1000px]">
+      <div className="relative my-6 h-56 sm:h-64 w-full flex items-center justify-center perspective-[1000px]">
         {previewImages.map((src, index) => {
           const depthOffset = (index - activeLayer + previewImages.length) % previewImages.length;
           const zIndex = 10 - depthOffset;
@@ -69,7 +65,7 @@ export const ClinicDrumPreview: React.FC<ClinicDrumPreviewProps> = ({ images, on
                 zIndex,
                 opacity,
               }}
-              className="absolute w-[86%] sm:w-[82%] h-48 sm:h-56 rounded-xl overflow-hidden border border-carbon-700 bg-black shadow-2xl transition-all duration-300 group-hover:border-azure-400/50"
+              className="absolute w-[86%] sm:w-[82%] h-44 sm:h-52 rounded-xl overflow-hidden border border-docker-border bg-black shadow-2xl transition-all duration-300 group-hover:border-docker-blue/50"
             >
               <img
                 src={src}
@@ -77,25 +73,25 @@ export const ClinicDrumPreview: React.FC<ClinicDrumPreviewProps> = ({ images, on
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-carbon-950/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-docker-charcoal/80 via-transparent to-transparent" />
             </div>
           );
         })}
 
         {/* Floating badge */}
-        <div className="absolute bottom-1 bg-carbon-950/90 border border-carbon-700 px-4 py-2 rounded-full backdrop-blur-md shadow-lg flex items-center gap-2.5 z-20 text-xs font-mono text-slate-300 group-hover:border-azure-400 transition-colors">
-          <Layers className="w-3.5 h-3.5 text-azure-400" />
-          <span>Click to cycle or expand full-screen modal</span>
+        <div className="absolute bottom-1 bg-docker-surface/90 border border-docker-border px-4 py-1.5 rounded-full backdrop-blur-md shadow-lg flex items-center gap-2 z-20 text-xs font-mono text-docker-white group-hover:border-docker-blue transition-colors">
+          <Layers className="w-3.5 h-3.5 text-docker-blue" />
+          <span>Click to cycle or expand modal</span>
         </div>
       </div>
 
       {/* Bottom status */}
-      <div className="pt-3 border-t border-carbon-800 flex items-center justify-between text-xs font-mono text-slate-400">
-        <span className="flex items-center gap-1.5 text-emerald-400">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+      <div className="pt-3 border-t border-docker-border flex items-center justify-between text-xs font-mono text-docker-muted">
+        <span className="flex items-center gap-1.5 text-status-running">
+          <span className="w-1.5 h-1.5 rounded-full bg-status-running" />
           Production MVC Views Captured
         </span>
-        <span className="text-slate-500">10 High-Res Screenshots</span>
+        <span className="text-docker-bright">10 High-Res Screenshots</span>
       </div>
     </div>
   );

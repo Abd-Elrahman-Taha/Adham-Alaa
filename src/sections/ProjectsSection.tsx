@@ -5,9 +5,11 @@ import { AlAlamiaFlowDiagram } from '../components/AlAlamiaFlowDiagram';
 import { ClinicDrumPreview } from '../components/ClinicDrumPreview';
 import { ClinicGalleryModal } from '../components/ClinicGalleryModal';
 import { ApiEndpointSimulator } from '../components/ApiEndpointSimulator';
+import { PipelineBridge } from '../components/PipelineBridge';
 import {
-  Car,
+  Box,
   Receipt,
+  Car,
   Landmark,
   Users,
   Activity,
@@ -25,7 +27,7 @@ import {
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
-  car: <Car className="w-4 h-4 text-azure-400" />,
+  car: <Car className="w-4 h-4 text-docker-bright" />,
   receipt: <Receipt className="w-4 h-4 text-emerald-400" />,
   bank: <Landmark className="w-4 h-4 text-purple-400" />,
   users: <Users className="w-4 h-4 text-amber-400" />,
@@ -33,14 +35,15 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   calendar: <Calendar className="w-4 h-4 text-teal-400" />,
   clock: <Clock className="w-4 h-4 text-indigo-400" />,
   lock: <Lock className="w-4 h-4 text-purple-400" />,
-  database: <Database className="w-4 h-4 text-azure-400" />,
+  database: <Database className="w-4 h-4 text-docker-soft" />,
   filter: <Filter className="w-4 h-4 text-amber-400" />,
   'shopping-cart': <ShoppingCart className="w-4 h-4 text-emerald-400" />,
   server: <Server className="w-4 h-4 text-teal-400" />,
-  'bar-chart': <BarChart3 className="w-4 h-4 text-azure-400" />,
+  'bar-chart': <BarChart3 className="w-4 h-4 text-docker-bright" />,
 };
 
 export const ProjectsSection: React.FC = () => {
+  const [filterCategory, setFilterCategory] = useState<string>('all');
   const [clinicModalOpen, setClinicModalOpen] = useState<boolean>(false);
   const [clinicActiveIndex, setClinicActiveIndex] = useState<number>(0);
 
@@ -53,399 +56,434 @@ export const ProjectsSection: React.FC = () => {
     setClinicModalOpen(true);
   };
 
+  const showAlalamia = filterCategory === 'all' || filterCategory === 'enterprise';
+  const showClinic = filterCategory === 'all' || filterCategory === 'operational';
+  const showEcommerce = filterCategory === 'all' || filterCategory === 'api';
+
   return (
-    <section id="projects" className="py-20 md:py-32 border-t border-carbon-800/80 bg-carbon-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-28">
+    <section id="projects" className="py-20 md:py-32 border-t border-docker-border bg-docker-bg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
         {/* Section Top Header */}
-        <SectionHeading
-          number="03"
-          label="ENGINEERED SYSTEMS"
-          title="Production Systems & Architectural Showcases"
-          description="Detailed inspection of real-world backend architectures: multi-partner automotive finance, operational clinic logistics, and scalable REST API design."
-          badge="Production Ready"
-        />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-docker-border">
+          <SectionHeading
+            number="02"
+            label="DEPLOYED IMAGES"
+            title="Container Registry"
+            description="Verified production backend systems and architectures packaged into isolated, maintainable container solutions."
+            badge="Registry Active"
+          />
 
-        {/* ========================================================
-            PROJECT 01: AL-ALAMIA CARS
-           ======================================================== */}
-        <div id="al-alamia-cars" className="space-y-8 scroll-mt-24">
-          {/* Project Header Banner */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-carbon-800">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="font-mono text-xs font-semibold text-azure-400 bg-azure-950/60 border border-azure-500/30 px-2.5 py-1 rounded">
-                  PROJECT {alalamia.number} &bull; {alalamia.category}
-                </span>
-                <span className="font-mono text-xs text-slate-400">Freelance Contract &bull; 2026</span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-sans">
-                {alalamia.title}
-              </h3>
-              <p className="text-base text-azure-300 font-sans mt-1">
-                {alalamia.subtitle}
-              </p>
-            </div>
-
-            {/* Quick Metrics */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {alalamia.metrics?.map((m, idx) => (
-                <div
-                  key={idx}
-                  className="bg-carbon-900 border border-carbon-800 px-3 py-1.5 rounded-lg text-xs font-mono"
-                >
-                  <span className="text-slate-400 block text-[10px]">{m.label}</span>
-                  <span className="text-white font-semibold">{m.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Interactive Flow Diagram Component */}
-          <AlAlamiaFlowDiagram />
-
-          {/* Project Narrative & Feature Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Narrative */}
-            <div className="lg:col-span-5 space-y-5 bg-carbon-900 border border-carbon-700/80 rounded-2xl p-6 shadow-panel">
-              <h4 className="text-lg font-bold text-white font-sans flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-azure-400" />
-                <span>Architecture &amp; Financial Solvency</span>
-              </h4>
-
-              <p className="text-sm text-slate-300 leading-relaxed font-sans">
-                {alalamia.description}
-              </p>
-
-              <div className="p-4 bg-carbon-950 rounded-xl border border-carbon-800 space-y-2">
-                <div className="text-xs font-mono text-azure-400 font-semibold uppercase">
-                  ARCHITECTURAL RATIONALE:
-                </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  {alalamia.architectureNotes}
-                </p>
-              </div>
-
-              {alalamia.operationalValue && (
-                <div className="p-4 bg-carbon-950 rounded-xl border border-emerald-500/20">
-                  <div className="text-xs font-mono text-emerald-400 font-semibold uppercase mb-1">
-                    OPERATIONAL VALUE IMPACT:
-                  </div>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {alalamia.operationalValue}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Right Feature Modules */}
-            <div className="lg:col-span-7 space-y-3">
-              <div className="font-mono text-xs uppercase tracking-wider text-slate-400 mb-2">
-                Key Technical Modules
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {alalamia.keyFeatures.map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-carbon-900 border border-carbon-800 rounded-xl p-4 hover:border-carbon-700 transition-colors"
-                  >
-                    <div className="flex items-center gap-2.5 mb-2">
-                      <div className="p-2 rounded-lg bg-carbon-850 border border-carbon-700">
-                        {ICON_MAP[feat.iconName || 'receipt'] || (
-                          <Receipt className="w-4 h-4 text-azure-400" />
-                        )}
-                      </div>
-                      <h5 className="text-sm font-semibold text-white leading-tight font-sans">
-                        {feat.title}
-                      </h5>
-                    </div>
-                    <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                      {feat.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Technologies Badges */}
-              <div className="pt-4 flex items-center gap-2 flex-wrap">
-                <span className="font-mono text-xs text-slate-500 mr-2">Core Stack:</span>
-                {alalamia.technologies.map((t) => (
-                  <span
-                    key={t}
-                    className="font-mono text-xs bg-carbon-900 text-slate-300 px-3 py-1 rounded-md border border-carbon-700"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
+          {/* Registry Filter Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 font-mono text-xs">
+            <button
+              onClick={() => setFilterCategory('all')}
+              className={`px-3.5 py-1.5 rounded-lg border transition-colors whitespace-nowrap focus:outline-none ${
+                filterCategory === 'all'
+                  ? 'bg-docker-blue text-white border-docker-blue shadow-docker-glow'
+                  : 'bg-docker-surface text-docker-muted border-docker-border hover:text-docker-white'
+              }`}
+            >
+              ALL_IMAGES (3)
+            </button>
+            <button
+              onClick={() => setFilterCategory('enterprise')}
+              className={`px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap focus:outline-none ${
+                filterCategory === 'enterprise'
+                  ? 'bg-docker-blue text-white border-docker-blue shadow-docker-glow'
+                  : 'bg-docker-surface text-docker-muted border-docker-border hover:text-docker-white'
+              }`}
+            >
+              FINTECH &bull; CARS
+            </button>
+            <button
+              onClick={() => setFilterCategory('operational')}
+              className={`px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap focus:outline-none ${
+                filterCategory === 'operational'
+                  ? 'bg-docker-blue text-white border-docker-blue shadow-docker-glow'
+                  : 'bg-docker-surface text-docker-muted border-docker-border hover:text-docker-white'
+              }`}
+            >
+              OPERATIONAL &bull; CLINIC
+            </button>
+            <button
+              onClick={() => setFilterCategory('api')}
+              className={`px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap focus:outline-none ${
+                filterCategory === 'api'
+                  ? 'bg-docker-blue text-white border-docker-blue shadow-docker-glow'
+                  : 'bg-docker-surface text-docker-muted border-docker-border hover:text-docker-white'
+              }`}
+            >
+              MICROSERVICES &bull; API
+            </button>
           </div>
         </div>
 
         {/* ========================================================
-            PROJECT 02: CLINIC MANAGEMENT SYSTEM
+            IMAGE 01: AL-ALAMIA CARS (Large Featured Container)
            ======================================================== */}
-        <div id="clinic-management" className="space-y-8 pt-12 border-t border-carbon-800/80 scroll-mt-24">
-          {/* Project Header Banner */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-carbon-800">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="font-mono text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 rounded">
-                  PROJECT {clinic.number} &bull; {clinic.category}
-                </span>
-                <span className="font-mono text-xs text-slate-400">Freelance Contract &bull; 2025–2026</span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-sans">
-                {clinic.title}
-              </h3>
-              <p className="text-base text-emerald-300 font-sans mt-1">
-                {clinic.subtitle}
-              </p>
-            </div>
-
-            {/* Metrics */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {clinic.metrics?.map((m, idx) => (
-                <div
-                  key={idx}
-                  className="bg-carbon-900 border border-carbon-800 px-3 py-1.5 rounded-lg text-xs font-mono"
-                >
-                  <span className="text-slate-400 block text-[10px]">{m.label}</span>
-                  <span className="text-white font-semibold">{m.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Primary Care Workflow Rail */}
-          <div className="bg-carbon-900 border border-carbon-800 rounded-xl p-4 overflow-x-auto">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span>SYNCHRONIZED CARE &amp; STAFF TIMELINE</span>
-            </div>
-            <div className="flex items-center gap-3 text-xs font-mono whitespace-nowrap text-slate-300">
-              {clinic.flowSteps?.map((step, idx) => (
-                <React.Fragment key={idx}>
-                  <span className="bg-carbon-950 px-3 py-1.5 rounded-md border border-carbon-800">
-                    {idx + 1}. {step}
+        {showAlalamia && (
+          <div id="al-alamia-cars" className="space-y-6 scroll-mt-24">
+            {/* Registry Card Header */}
+            <div className="bg-docker-surface border border-docker-border rounded-2xl overflow-hidden shadow-container">
+              <div className="px-5 py-3.5 bg-docker-charcoal border-b border-docker-border flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+                <div className="flex items-center gap-3">
+                  <Box className="w-4 h-4 text-docker-blue" />
+                  <span className="text-docker-white font-semibold">
+                    IMAGE: al-alamia-cars:latest
                   </span>
-                  {idx < (clinic.flowSteps?.length || 0) - 1 && (
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-600 flex-shrink-0" />
-                  )}
-                </React.Fragment>
-              ))}
+                  <span className="text-docker-muted text-[11px] hidden sm:inline">
+                    TAG: sha256:7f4a0c8b &bull; DIGEST: OK
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3 text-[11px]">
+                  <span className="text-status-running flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-status-running animate-pulse" />
+                    ● BUILD SUCCESS
+                  </span>
+                  <span className="text-docker-bright bg-docker-blue/15 px-2 py-0.5 rounded border border-docker-blue/30">
+                    PORT: 5000:80/tcp
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6 md:p-8 space-y-6">
+                <div>
+                  <span className="font-mono text-xs text-docker-bright uppercase font-bold">
+                    // REGISTRY_IMAGE_01 &bull; {alalamia.category}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-docker-white font-sans mt-1">
+                    {alalamia.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-docker-soft font-sans mt-0.5">
+                    {alalamia.subtitle}
+                  </p>
+                </div>
+
+                {/* Interactive Automotive & Clearing Flow */}
+                <AlAlamiaFlowDiagram />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pt-2">
+                  <div className="lg:col-span-5 bg-docker-charcoal/80 border border-docker-border rounded-xl p-5 space-y-3 font-sans">
+                    <h4 className="text-sm font-mono uppercase text-docker-bright font-bold flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Architecture &amp; Solvency Specs</span>
+                    </h4>
+                    <p className="text-xs sm:text-sm text-docker-white/90 leading-relaxed">
+                      {alalamia.description}
+                    </p>
+                    <p className="text-xs text-docker-muted leading-relaxed">
+                      {alalamia.architectureNotes}
+                    </p>
+                    {alalamia.operationalValue && (
+                      <div className="p-3 bg-docker-surface rounded-lg border border-emerald-500/20 text-xs text-docker-muted mt-2">
+                        <strong className="text-status-running block font-mono text-[11px] mb-0.5">
+                          OPERATIONAL IMPACT:
+                        </strong>
+                        {alalamia.operationalValue}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="lg:col-span-7 space-y-2.5">
+                    <div className="text-[11px] font-mono uppercase tracking-wider text-docker-muted">
+                      Container Submodules &bull; Service Endpoints
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {alalamia.keyFeatures.map((feat, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-docker-charcoal/60 border border-docker-border rounded-lg p-3 hover:border-docker-borderBright transition-colors"
+                        >
+                          <div className="flex items-center gap-2 mb-1.5">
+                            {ICON_MAP[feat.iconName || 'receipt'] || (
+                              <Receipt className="w-3.5 h-3.5 text-docker-blue" />
+                            )}
+                            <h5 className="text-xs font-semibold text-docker-white font-sans">
+                              {feat.title}
+                            </h5>
+                          </div>
+                          <p className="text-[11px] text-docker-muted leading-relaxed font-sans">
+                            {feat.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 flex items-center gap-1.5 flex-wrap font-mono text-xs">
+                      <span className="text-docker-muted text-[11px] mr-1">STACK:</span>
+                      {alalamia.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="bg-docker-surface text-docker-white px-2.5 py-0.5 rounded border border-docker-border text-[11px]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        )}
 
-          {/* Mirrored Composition: Visual Preview Left, Details Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Visual Screenshot Stack Preview (Left Column) */}
-            <div className="lg:col-span-6 space-y-4">
-              <ClinicDrumPreview
-                images={clinic.images || []}
-                onOpenModal={handleOpenClinicModal}
-              />
-
-              {/* Administrative Grid Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="bg-carbon-900 border border-carbon-800 rounded-xl p-4">
-                  <h5 className="text-xs font-mono uppercase text-emerald-400 font-semibold mb-1">
-                    How The Day Runs
-                  </h5>
-                  <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                    Front-desk, treatment staff, and administration share one timeline, giving a clear day-level view of what is booked, attended, missed, consumed, or still pending.
-                  </p>
+        {/* ========================================================
+            IMAGE 02: CLINIC MANAGEMENT SYSTEM (Horizontal Stack)
+           ======================================================== */}
+        {showClinic && (
+          <div id="clinic-management" className="space-y-6 scroll-mt-24">
+            <div className="bg-docker-surface border border-docker-border rounded-2xl overflow-hidden shadow-container">
+              <div className="px-5 py-3.5 bg-docker-charcoal border-b border-docker-border flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+                <div className="flex items-center gap-3">
+                  <Box className="w-4 h-4 text-docker-soft" />
+                  <span className="text-docker-white font-semibold">
+                    IMAGE: clinic-platform:production
+                  </span>
+                  <span className="text-docker-muted text-[11px] hidden sm:inline">
+                    TAG: sha256:4b91d29e &bull; 10 Production Views
+                  </span>
                 </div>
-                <div className="bg-carbon-900 border border-carbon-800 rounded-xl p-4">
-                  <h5 className="text-xs font-mono uppercase text-azure-400 font-semibold mb-1">
-                    Administrative Value
-                  </h5>
-                  <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                    By replacing fragmented manual follow-up with one backend source of truth, the clinic runs with cleaner scheduling, faster status checks, and stronger daily control.
-                  </p>
+
+                <div className="flex items-center gap-3 text-[11px]">
+                  <span className="text-status-running flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-status-running animate-pulse" />
+                    ● BUILD SUCCESS
+                  </span>
+                  <span className="text-docker-bright bg-docker-blue/15 px-2 py-0.5 rounded border border-docker-blue/30">
+                    PORT: 8080:80/tcp
+                  </span>
                 </div>
               </div>
-            </div>
 
-            {/* Narrative & Feature Breakdown (Right Column) */}
-            <div className="lg:col-span-6 space-y-5">
-              <div className="bg-carbon-900 border border-carbon-700/80 rounded-2xl p-6 shadow-panel space-y-4">
-                <h4 className="text-lg font-bold text-white font-sans flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-emerald-400" />
-                  <span>Operations-First Clinical Architecture</span>
-                </h4>
+              <div className="p-6 md:p-8 space-y-6">
+                <div>
+                  <span className="font-mono text-xs text-status-ready uppercase font-bold">
+                    // REGISTRY_IMAGE_02 &bull; {clinic.category}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-docker-white font-sans mt-1">
+                    {clinic.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-status-ready font-sans mt-0.5">
+                    {clinic.subtitle}
+                  </p>
+                </div>
 
-                <p className="text-sm text-slate-300 leading-relaxed font-sans">
-                  {clinic.description}
-                </p>
-
-                <div className="p-4 bg-carbon-950 rounded-xl border border-carbon-800">
-                  <div className="text-xs font-mono text-emerald-400 font-semibold uppercase mb-1">
-                    DATABASE &amp; ACCESS CONTROL:
+                {/* Primary Care Workflow Rail */}
+                <div className="bg-docker-charcoal border border-docker-border rounded-xl p-3.5 overflow-x-auto">
+                  <div className="flex items-center gap-2 text-xs font-mono text-status-ready mb-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-status-ready" />
+                    <span>CARE WORKFLOW &bull; SERVICE PIPELINE</span>
                   </div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {clinic.architectureNotes}
-                  </p>
+                  <div className="flex items-center gap-2.5 text-xs font-mono whitespace-nowrap text-docker-white/90">
+                    {clinic.flowSteps?.map((step, idx) => (
+                      <React.Fragment key={idx}>
+                        <span className="bg-docker-surface px-2.5 py-1 rounded border border-docker-border text-[11px]">
+                          {idx + 1}. {step}
+                        </span>
+                        {idx < (clinic.flowSteps?.length || 0) - 1 && (
+                          <ArrowRight className="w-3 h-3 text-docker-muted flex-shrink-0" />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Features List */}
-              <div className="space-y-3">
-                {clinic.keyFeatures.map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-3 bg-carbon-900/80 border border-carbon-800/80 rounded-xl p-3.5 hover:border-carbon-700 transition-colors"
-                  >
-                    <div className="p-2 rounded-lg bg-carbon-850 border border-carbon-700 mt-0.5 flex-shrink-0">
-                      {ICON_MAP[feat.iconName || 'activity'] || (
-                        <Activity className="w-4 h-4 text-emerald-400" />
-                      )}
+                {/* Mirrored Horizontal Layout: Screenshots Preview & Specs */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                  <div className="lg:col-span-6 space-y-3">
+                    <ClinicDrumPreview
+                      images={clinic.images || []}
+                      onOpenModal={handleOpenClinicModal}
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans">
+                      <div className="bg-docker-charcoal/80 border border-docker-border rounded-lg p-3">
+                        <strong className="text-status-ready font-mono text-[11px] block mb-1">
+                          HOW THE DAY RUNS:
+                        </strong>
+                        <p className="text-docker-muted text-[11px] leading-relaxed">
+                          Front-desk, treatment staff, and admins share one timeline with real-time status tracking.
+                        </p>
+                      </div>
+                      <div className="bg-docker-charcoal/80 border border-docker-border rounded-lg p-3">
+                        <strong className="text-docker-bright font-mono text-[11px] block mb-1">
+                          ADMINISTRATIVE VALUE:
+                        </strong>
+                        <p className="text-docker-muted text-[11px] leading-relaxed">
+                          Zero session over-redemption through database constraints and package ledger accounting.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h5 className="text-sm font-semibold text-white font-sans">
-                        {feat.title}
-                      </h5>
-                      <p className="text-xs text-slate-400 leading-relaxed mt-0.5 font-sans">
-                        {feat.description}
+                  </div>
+
+                  <div className="lg:col-span-6 space-y-3 font-sans">
+                    <div className="bg-docker-charcoal/80 border border-docker-border rounded-xl p-5 space-y-3">
+                      <h4 className="text-sm font-mono uppercase text-status-ready font-bold flex items-center gap-2">
+                        <Activity className="w-4 h-4" />
+                        <span>Operations Backend Architecture</span>
+                      </h4>
+                      <p className="text-xs sm:text-sm text-docker-white/90 leading-relaxed">
+                        {clinic.description}
+                      </p>
+                      <p className="text-xs text-docker-muted leading-relaxed">
+                        {clinic.architectureNotes}
                       </p>
                     </div>
-                  </div>
-                ))}
-              </div>
 
-              {/* Technologies Badges */}
-              <div className="pt-2 flex items-center gap-2 flex-wrap">
-                <span className="font-mono text-xs text-slate-500 mr-2">Stack:</span>
-                {clinic.technologies.map((t) => (
-                  <span
-                    key={t}
-                    className="font-mono text-xs bg-carbon-900 text-slate-300 px-3 py-1 rounded-md border border-carbon-700"
-                  >
-                    {t}
-                  </span>
-                ))}
+                    <div className="space-y-2">
+                      {clinic.keyFeatures.map((feat, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-2.5 bg-docker-charcoal/60 border border-docker-border rounded-lg p-2.5"
+                        >
+                          <div className="p-1.5 rounded bg-docker-surface border border-docker-border mt-0.5 flex-shrink-0">
+                            {ICON_MAP[feat.iconName || 'activity'] || (
+                              <Activity className="w-3.5 h-3.5 text-status-ready" />
+                            )}
+                          </div>
+                          <div>
+                            <h5 className="text-xs font-semibold text-docker-white">{feat.title}</h5>
+                            <p className="text-[11px] text-docker-muted leading-relaxed mt-0.5">
+                              {feat.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 flex items-center gap-1.5 flex-wrap font-mono text-xs">
+                      <span className="text-docker-muted text-[11px] mr-1">STACK:</span>
+                      {clinic.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="bg-docker-surface text-docker-white px-2 py-0.5 rounded border border-docker-border text-[11px]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* ========================================================
-            PROJECT 03: E-COMMERCE REST API
+            IMAGE 03: E-COMMERCE REST API (API Simulator)
            ======================================================== */}
-        <div id="ecommerce-api" className="space-y-8 pt-12 border-t border-carbon-800/80 scroll-mt-24">
-          {/* Project Header Banner */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-carbon-800">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="font-mono text-xs font-semibold text-purple-400 bg-purple-950/60 border border-purple-500/30 px-2.5 py-1 rounded">
-                  PROJECT {ecommerce.number} &bull; {ecommerce.category}
-                </span>
-                <span className="font-mono text-xs text-slate-400">Route Academy Track C44 &bull; 2025</span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-sans">
-                {ecommerce.title}
-              </h3>
-              <p className="text-base text-purple-300 font-sans mt-1">
-                {ecommerce.subtitle}
-              </p>
-            </div>
-
-            {/* Metrics */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {ecommerce.metrics?.map((m, idx) => (
-                <div
-                  key={idx}
-                  className="bg-carbon-900 border border-carbon-800 px-3 py-1.5 rounded-lg text-xs font-mono"
-                >
-                  <span className="text-slate-400 block text-[10px]">{m.label}</span>
-                  <span className="text-white font-semibold">{m.value}</span>
+        {showEcommerce && (
+          <div id="ecommerce-api" className="space-y-6 scroll-mt-24">
+            <div className="bg-docker-surface border border-docker-border rounded-2xl overflow-hidden shadow-container">
+              <div className="px-5 py-3.5 bg-docker-charcoal border-b border-docker-border flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+                <div className="flex items-center gap-3">
+                  <Box className="w-4 h-4 text-purple-400" />
+                  <span className="text-docker-white font-semibold">
+                    IMAGE: ecommerce-api:v1.0
+                  </span>
+                  <span className="text-docker-muted text-[11px] hidden sm:inline">
+                    TAG: sha256:1a8b3e5c &bull; Route Academy C44 Track
+                  </span>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Interactive API Simulator */}
-          <ApiEndpointSimulator />
-
-          {/* Details & Features */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-5 bg-carbon-900 border border-carbon-700/80 rounded-2xl p-6 shadow-panel space-y-4">
-              <h4 className="text-lg font-bold text-white font-sans flex items-center gap-2">
-                <Layers className="w-5 h-5 text-purple-400" />
-                <span>RESTful Architecture &amp; Caching</span>
-              </h4>
-
-              <p className="text-sm text-slate-300 leading-relaxed font-sans">
-                {ecommerce.description}
-              </p>
-
-              <div className="p-4 bg-carbon-950 rounded-xl border border-carbon-800">
-                <div className="text-xs font-mono text-purple-400 font-semibold uppercase mb-1">
-                  SPECIFICATION &amp; REPOSITORY LAYER:
+                <div className="flex items-center gap-3 text-[11px]">
+                  <span className="text-status-running flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-status-running animate-pulse" />
+                    ● BUILD SUCCESS
+                  </span>
+                  <span className="text-purple-300 bg-purple-950/40 px-2 py-0.5 rounded border border-purple-500/30">
+                    PORT: 443:443/tcp
+                  </span>
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  {ecommerce.architectureNotes}
-                </p>
               </div>
 
-              {ecommerce.operationalValue && (
-                <div className="p-4 bg-carbon-950 rounded-xl border border-carbon-800 text-xs text-slate-400">
-                  <span className="text-slate-300 font-semibold block mb-1">Value Delivered:</span>
-                  {ecommerce.operationalValue}
+              <div className="p-6 md:p-8 space-y-6">
+                <div>
+                  <span className="font-mono text-xs text-purple-400 uppercase font-bold">
+                    // REGISTRY_IMAGE_03 &bull; {ecommerce.category}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-docker-white font-sans mt-1">
+                    {ecommerce.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-purple-300 font-sans mt-0.5">
+                    {ecommerce.subtitle}
+                  </p>
                 </div>
-              )}
-            </div>
 
-            <div className="lg:col-span-7 space-y-3">
-              <div className="font-mono text-xs uppercase tracking-wider text-slate-400 mb-2">
-                Core Architectural Highlights
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {ecommerce.keyFeatures.map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-carbon-900 border border-carbon-800 rounded-xl p-4 hover:border-carbon-700 transition-colors"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="p-1.5 rounded-lg bg-carbon-850 border border-carbon-700">
-                        {ICON_MAP[feat.iconName || 'server'] || (
-                          <Server className="w-4 h-4 text-purple-400" />
-                        )}
-                      </div>
-                      <h5 className="text-sm font-semibold text-white font-sans">
-                        {feat.title}
-                      </h5>
-                    </div>
-                    <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                      {feat.description}
+                {/* Interactive API Telemetry Simulator */}
+                <ApiEndpointSimulator />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start font-sans">
+                  <div className="lg:col-span-5 bg-docker-charcoal/80 border border-docker-border rounded-xl p-5 space-y-3">
+                    <h4 className="text-sm font-mono uppercase text-purple-400 font-bold flex items-center gap-2">
+                      <Layers className="w-4 h-4" />
+                      <span>RESTful Architecture &amp; Caching</span>
+                    </h4>
+                    <p className="text-xs sm:text-sm text-docker-white/90 leading-relaxed">
+                      {ecommerce.description}
+                    </p>
+                    <p className="text-xs text-docker-muted leading-relaxed">
+                      {ecommerce.architectureNotes}
                     </p>
                   </div>
-                ))}
-              </div>
 
-              <div className="pt-4 flex items-center gap-2 flex-wrap">
-                <span className="font-mono text-xs text-slate-500 mr-2">Technologies:</span>
-                {ecommerce.technologies.map((t) => (
-                  <span
-                    key={t}
-                    className="font-mono text-xs bg-carbon-900 text-slate-300 px-3 py-1 rounded-md border border-carbon-700"
-                  >
-                    {t}
-                  </span>
-                ))}
+                  <div className="lg:col-span-7 space-y-2.5">
+                    <div className="text-[11px] font-mono uppercase tracking-wider text-docker-muted">
+                      Microservice Modules &bull; Endpoints
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {ecommerce.keyFeatures.map((feat, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-docker-charcoal/60 border border-docker-border rounded-lg p-3"
+                        >
+                          <div className="flex items-center gap-2 mb-1">
+                            {ICON_MAP[feat.iconName || 'server'] || (
+                              <Server className="w-3.5 h-3.5 text-purple-400" />
+                            )}
+                            <h5 className="text-xs font-semibold text-docker-white">{feat.title}</h5>
+                          </div>
+                          <p className="text-[11px] text-docker-muted leading-relaxed font-sans">
+                            {feat.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 flex items-center gap-1.5 flex-wrap font-mono text-xs">
+                      <span className="text-docker-muted text-[11px] mr-1">STACK:</span>
+                      {ecommerce.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="bg-docker-surface text-docker-white px-2 py-0.5 rounded border border-docker-border text-[11px]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
 
-      {/* Lightbox Modal for 10 Real Clinic Screenshots */}
-      <ClinicGalleryModal
-        isOpen={clinicModalOpen}
-        currentIndex={clinicActiveIndex}
-        onIndexChange={setClinicActiveIndex}
-        onClose={() => setClinicModalOpen(false)}
-        images={clinic.images || []}
-      />
+        {/* Lightbox Modal for 10 Real Clinic Screenshots */}
+        <ClinicGalleryModal
+          isOpen={clinicModalOpen}
+          currentIndex={clinicActiveIndex}
+          onIndexChange={setClinicActiveIndex}
+          onClose={() => setClinicModalOpen(false)}
+          images={clinic.images || []}
+        />
+
+        {/* Transition Bridge to Container Stack */}
+        <PipelineBridge
+          currentStage="REGISTRY_VERIFIED"
+          nextStage="CONTAINER_STACK"
+          description="Inspecting layered infrastructure hierarchy"
+        />
+      </div>
     </section>
   );
 };

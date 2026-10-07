@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Check, Server, Zap, Database, ShieldCheck } from 'lucide-react';
+import { Play, Check, Zap, Database, ShieldCheck, Box } from 'lucide-react';
 
 interface EndpointConfig {
   method: 'GET' | 'POST';
@@ -77,24 +77,24 @@ export const ApiEndpointSimulator: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-carbon-900 border border-carbon-700/80 rounded-2xl overflow-hidden shadow-panel">
+    <div className="w-full bg-docker-charcoal border border-docker-border rounded-xl overflow-hidden shadow-container">
       {/* Top Console Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-carbon-950 border-b border-carbon-800 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 bg-docker-surface border-b border-docker-border gap-2">
         <div className="flex items-center gap-2">
-          <Server className="w-4 h-4 text-azure-400" />
-          <span className="font-mono text-xs text-white font-semibold">
-            API Telemetry Console // Route Academy C44 Track
+          <Box className="w-4 h-4 text-docker-blue" />
+          <span className="font-mono text-xs text-docker-white font-semibold">
+            CONTAINER_INGRESS // API SIMULATOR
           </span>
         </div>
 
-        <div className="flex items-center gap-2 font-mono text-[11px] text-slate-400">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>Swagger v3.0 / IIS Kestrel Hosted</span>
+        <div className="flex items-center gap-2 font-mono text-[11px] text-docker-muted">
+          <span className="w-2 h-2 rounded-full bg-status-running animate-pulse" />
+          <span>Kestrel HTTP/2 &bull; Swagger v3.0 OpenAPI</span>
         </div>
       </div>
 
       {/* Endpoint Selector Tabs */}
-      <div className="p-4 bg-carbon-850/50 border-b border-carbon-800 flex flex-wrap gap-2">
+      <div className="p-3 bg-docker-charcoal/80 border-b border-docker-border flex flex-wrap gap-2">
         {ENDPOINTS.map((ep, idx) => (
           <button
             key={ep.path}
@@ -104,13 +104,13 @@ export const ApiEndpointSimulator: React.FC = () => {
             }}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
               selectedIdx === idx
-                ? 'bg-carbon-950 text-white border border-azure-500/50 shadow-sm'
-                : 'text-slate-400 hover:text-white hover:bg-carbon-800'
+                ? 'bg-docker-surface text-docker-white border border-docker-blue shadow-docker-glow'
+                : 'text-docker-muted hover:text-docker-white hover:bg-docker-surface/50 border border-transparent'
             }`}
           >
             <span
               className={`font-bold ${
-                ep.method === 'GET' ? 'text-emerald-400' : 'text-azure-400'
+                ep.method === 'GET' ? 'text-status-running' : 'text-docker-bright'
               }`}
             >
               {ep.method}
@@ -120,25 +120,25 @@ export const ApiEndpointSimulator: React.FC = () => {
         ))}
       </div>
 
-      {/* Request Bar */}
-      <div className="p-4 bg-carbon-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-3 bg-carbon-950 px-3.5 py-2.5 rounded-lg border border-carbon-800 flex-1 overflow-x-auto font-mono text-xs">
+      {/* Request Execution Bar */}
+      <div className="p-3 bg-docker-surface flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3 bg-docker-charcoal px-3 py-2 rounded-lg border border-docker-border flex-1 overflow-x-auto font-mono text-xs">
           <span
             className={`font-bold px-1.5 py-0.5 rounded text-[11px] ${
               current.method === 'GET'
-                ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30'
-                : 'bg-azure-950 text-azure-400 border border-azure-500/30'
+                ? 'bg-emerald-950 text-status-running border border-status-running/30'
+                : 'bg-docker-blue/20 text-docker-bright border border-docker-blue/30'
             }`}
           >
             {current.method}
           </span>
-          <span className="text-white whitespace-nowrap">{current.path}</span>
+          <span className="text-docker-white whitespace-nowrap">{current.path}</span>
         </div>
 
         <button
           onClick={handleExecute}
           disabled={isExecuting}
-          className="flex items-center justify-center gap-2 bg-azure-600 hover:bg-azure-500 disabled:opacity-50 text-white font-mono text-xs px-4 py-2.5 rounded-lg transition-colors shadow-sm focus:outline-none"
+          className="flex items-center justify-center gap-2 bg-docker-blue hover:bg-docker-bright disabled:opacity-50 text-white font-mono text-xs px-4 py-2 rounded-lg transition-colors shadow-sm focus:outline-none"
         >
           {isExecuting ? (
             <span className="animate-spin w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full" />
@@ -150,55 +150,55 @@ export const ApiEndpointSimulator: React.FC = () => {
       </div>
 
       {/* Execution Pipeline Steps */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 p-4 bg-carbon-950/60 border-t border-b border-carbon-800">
-        <div className="p-2.5 bg-carbon-900/80 rounded-lg border border-carbon-800">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 bg-docker-charcoal border-t border-b border-docker-border">
+        <div className="p-2.5 bg-docker-surface rounded-lg border border-docker-border">
           <div className="flex items-center gap-1.5 text-purple-400 font-mono text-[10px] mb-1">
             <ShieldCheck className="w-3 h-3" />
-            <span>1. AUTH PIPELINE</span>
+            <span>1. AUTH CONTAINER</span>
           </div>
-          <div className="text-xs text-white font-medium truncate">{current.auth}</div>
+          <div className="text-xs text-docker-white font-medium truncate">{current.auth}</div>
         </div>
 
-        <div className="p-2.5 bg-carbon-900/80 rounded-lg border border-carbon-800">
-          <div className="flex items-center gap-1.5 text-azure-400 font-mono text-[10px] mb-1">
+        <div className="p-2.5 bg-docker-surface rounded-lg border border-docker-border">
+          <div className="flex items-center gap-1.5 text-docker-bright font-mono text-[10px] mb-1">
             <Zap className="w-3 h-3" />
-            <span>2. CACHE TIER</span>
+            <span>2. REDIS CACHE</span>
           </div>
-          <div className="text-xs text-white font-medium truncate">{current.cacheStrategy}</div>
+          <div className="text-xs text-docker-white font-medium truncate">{current.cacheStrategy}</div>
         </div>
 
-        <div className="p-2.5 bg-carbon-900/80 rounded-lg border border-carbon-800">
+        <div className="p-2.5 bg-docker-surface rounded-lg border border-docker-border">
           <div className="flex items-center gap-1.5 text-amber-400 font-mono text-[10px] mb-1">
             <Database className="w-3 h-3" />
-            <span>3. PERSISTENCE</span>
+            <span>3. SQL PERSISTENCE</span>
           </div>
-          <div className="text-xs text-white font-medium truncate">SQL Server 2022</div>
+          <div className="text-xs text-docker-white font-medium truncate">SQL Server 2022</div>
         </div>
 
-        <div className="p-2.5 bg-carbon-900/80 rounded-lg border border-carbon-800">
-          <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-[10px] mb-1">
+        <div className="p-2.5 bg-docker-surface rounded-lg border border-docker-border">
+          <div className="flex items-center gap-1.5 text-status-running font-mono text-[10px] mb-1">
             <Check className="w-3 h-3" />
             <span>4. LATENCY</span>
           </div>
-          <div className="text-xs text-white font-medium truncate">{current.duration}</div>
+          <div className="text-xs text-docker-white font-medium truncate">{current.duration}</div>
         </div>
       </div>
 
       {/* Response Display */}
-      <div className="p-4 bg-carbon-950 font-mono text-xs">
-        <div className="flex items-center justify-between text-slate-400 mb-2 pb-2 border-b border-carbon-850">
+      <div className="p-3.5 bg-docker-surface font-mono text-xs">
+        <div className="flex items-center justify-between text-docker-muted mb-2 pb-1.5 border-b border-docker-border">
           <span className="text-[11px]">HTTP/1.1 {current.status} OK</span>
-          <span className="text-[11px] text-emerald-400">Content-Type: application/json</span>
+          <span className="text-[11px] text-status-running">Content-Type: application/json</span>
         </div>
 
-        <div className="overflow-x-auto text-slate-300">
+        <div className="overflow-x-auto text-docker-white">
           {hasExecuted ? (
             <pre>
               <code>{current.responsePreview}</code>
             </pre>
           ) : (
-            <div className="py-6 text-center text-slate-500 animate-pulse">
-              Executing pipeline middleware and EF Core query...
+            <div className="py-6 text-center text-docker-muted animate-pulse">
+              Dispatching container pipeline request through Kestrel...
             </div>
           )}
         </div>

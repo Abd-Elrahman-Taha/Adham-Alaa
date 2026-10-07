@@ -6,6 +6,7 @@ import { Hero } from './sections/Hero';
 import { About } from './sections/About';
 import { ProjectsSection } from './sections/ProjectsSection';
 import { ArchitectureSection } from './sections/ArchitectureSection';
+import { ContainerStackSection } from './sections/ContainerStackSection';
 import { SkillsSection } from './sections/SkillsSection';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { EducationSection } from './sections/EducationSection';
@@ -16,41 +17,44 @@ export const App: React.FC = () => {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
 
   return (
-    <div className="min-h-screen bg-carbon-950 text-slate-300 font-sans selection:bg-azure-500 selection:text-white flex flex-col relative antialiased">
-      {/* Top Technical Telemetry Status */}
+    <div className="min-h-screen bg-docker-bg text-docker-muted font-sans selection:bg-docker-blue selection:text-white flex flex-col relative antialiased">
+      {/* Top Docker Daemon Telemetry Status Bar */}
       <TelemetryBar />
 
-      {/* Floating Sticky Header & Navigation */}
+      {/* Modern Infrastructure Header & Navigation */}
       <Navbar onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
 
-      {/* Main Content Landmark */}
+      {/* Main Containerized Content Pipeline */}
       <main id="main-content" className="flex-1">
-        {/* Section 01: Hero & Portrait Blueprint */}
+        {/* Section 00: Hero & Architectural Docker Whale */}
         <Hero />
 
-        {/* Section 02: About & Engineering Discipline */}
+        {/* Section 01: Inside the Container (About) */}
         <About />
 
-        {/* Section 03: Projects Showcase */}
+        {/* Section 02: Container Registry (Projects Showcase) */}
         <ProjectsSection />
 
-        {/* Section 04: Architecture Foundation & Explorer */}
+        {/* Section 03: Service Architecture & Topology */}
         <ArchitectureSection />
 
-        {/* Section 05: Technical Skills Matrix */}
+        {/* Section 04: Container Stack Hierarchy */}
+        <ContainerStackSection />
+
+        {/* Section 05: Tech Stack & Available Images */}
         <SkillsSection />
 
-        {/* Section 06: Professional Experience Contracts */}
+        {/* Section 06: Production Deployments & Experience */}
         <ExperienceSection />
 
-        {/* Section 07: Education & Route Academy Certification */}
+        {/* Section 07: Academic Foundations & Route Academy Certification */}
         <EducationSection />
 
-        {/* Section 08: Direct Contact & Inquiries */}
+        {/* Section 08: Deploy to Production (Contact) */}
         <ContactSection />
       </main>
 
-      {/* Terminal-Inspired Engineering Footer */}
+      {/* Deployment Footer with Signature Architectural Whale */}
       <Footer />
 
       {/* Interactive Command Palette Modal (Ctrl+K / ⌘K) */}

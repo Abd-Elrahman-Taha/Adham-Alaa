@@ -5,59 +5,83 @@
 @layer base {
   :root {
     color-scheme: dark;
-    --background: #07090d;
-    --foreground: #f1f5f9;
+    --background: #05080B;
+    --foreground: #F5F7FA;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: #07090d;
-    color: #f1f5f9;
+    background-color: #05080B;
+    color: #F5F7FA;
     font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #07090d;
-    color: #cbd5e1;
+    background-color: #05080B;
+    color: #9AA7B2;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background-color: #0284c7;
+    background-color: #2496ED;
     color: #ffffff;
   }
 
-  /* Custom scrollbar for desktop */
+  /* Containerized Infrastructure Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #0c0f17;
+    background: #0B1117;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 4px;
-    border: 2px solid #0c0f17;
+    background: #24313D;
+    border-radius: 3px;
+    border: 1px solid #0B1117;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #38bdf8;
+    background: #2496ED;
+  }
+}
+
+@layer components {
+  /* Docker Container Block Surface */
+  .container-block {
+    @apply bg-docker-surface border border-docker-border rounded-xl transition-all duration-200 shadow-container;
+  }
+
+  .container-block:hover {
+    @apply border-docker-blue/60 shadow-docker-glow;
+  }
+
+  .container-header {
+    @apply px-4 py-3 bg-docker-charcoal/90 border-b border-docker-border flex items-center justify-between text-xs font-mono;
+  }
+
+  /* Decorative container status pills */
+  .status-pill-running {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-medium bg-emerald-950/60 text-status-running border border-status-running/30;
+  }
+
+  .status-pill-ready {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-medium bg-docker-blue/15 text-docker-bright border border-docker-blue/30;
   }
 }
 
 @layer utilities {
-  .text-glow {
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+  .text-docker-glow {
+    text-shadow: 0 0 18px rgba(36, 150, 237, 0.45);
   }
 
-  .border-glow {
-    box-shadow: 0 0 15px -3px rgba(56, 189, 248, 0.15);
+  .border-docker-glow {
+    box-shadow: 0 0 20px -3px rgba(36, 150, 237, 0.25);
   }
 }
 
