@@ -1,0 +1,86 @@
+import type { ExperienceItem } from '../types/portfolio';
+
+export const experienceData: ExperienceItem[] = [
+  {
+    id: 'al-alamia-cars',
+    role: 'Back-End .NET Developer',
+    company: 'Al-Alamia Cars',
+    period: '2026',
+    year: '2026',
+    type: 'Freelance / Contract',
+    location: 'Remote',
+    summary:
+      'Engineered an enterprise-grade car dealership operations and financial management backend system using ASP.NET Core MVC, EF Core, Dapper, and SQL Server, handling high-stakes automotive transactions, dynamic installment scheduling, and investor equity accounting.',
+    responsibilities: [
+      'Architected end-to-end vehicle inventory lifecycle, supporting direct cash purchases, deferred payouts, and structured installment sales contracts.',
+      'Constructed dynamic installment platform generating repayment schedules, calculating real-time penalties, and enforcing automated settlement workflows.',
+      'Developed treasury and bank account ledger system with transaction-safe financial logging and multi-tier business validation.',
+      'Designed complex partner investment logic that dynamically calculates equity distribution and settles investor payouts upon vehicle sale.',
+      'Delivered analytical reporting modules for inventory turnover, profit & loss, installment aging, and partner dividend records utilizing Dapper for low-latency queries.',
+      'Applied Onion Architecture, Repository Pattern, and Unit of Work to decouple business domains from data persistence layers.',
+    ],
+    impactPoints: [
+      'Eliminated manual settlement discrepancies through automated multi-partner ownership resolution algorithms.',
+      'Guaranteed ACID compliance across all financial transactions, preventing ledger desynchronization during high-volume contract settlements.',
+      'Optimized reporting latency by combining Entity Framework Core for operational writes with Dapper for high-speed read analytics.',
+    ],
+    technologies: [
+      'C#',
+      'ASP.NET Core MVC',
+      'Entity Framework Core',
+      'Dapper',
+      'SQL Server',
+      'Onion Architecture',
+      'LINQ',
+      'Git',
+    ],
+    architecturePatterns: [
+      'Onion Architecture',
+      'Repository Pattern',
+      'Unit of Work',
+      'Dependency Injection',
+      'ACID Financial Transactions',
+    ],
+  },
+  {
+    id: 'clinic-management',
+    role: 'Back-End .NET Developer',
+    company: 'Clinic Management Platform',
+    period: '2025 – 2026',
+    year: '2025–2026',
+    type: 'Freelance / Contract',
+    location: 'Remote',
+    summary:
+      'Architected and implemented a multi-role operational healthcare backend that synchronizes patient intake, clinical evaluations, treatment package session accounting, doctor bookings, and staff shift tracking across reception, medical staff, and executive administration.',
+    responsibilities: [
+      'Led relational database design comprising 15+ normalized tables with strict foreign keys, index optimization, and integrity constraints in SQL Server.',
+      'Engineered treatment package ledger and quota tracking engine, strictly verifying session decrementing against active entitlements.',
+      'Built multi-role access control (RBAC) governing receptionists, intern doctors, and administrative directors with isolated privilege boundaries.',
+      'Designed scheduling engine enforcing clinic availability rules and auditing visit statuses (attended, cancelled, missed, completed).',
+      'Developed doctor session attendance tracking and receptionist shift start/end logging for transparent payroll and operational auditing.',
+      'Structured application logic with ASP.NET Core MVC, Entity Framework Core, AutoMapper profiles, and LINQ queries for high maintainability.',
+    ],
+    impactPoints: [
+      'Replaced fragmented paper and spreadsheet records with an unified backend source of truth for all clinical transactions.',
+      'Completely eliminated appointment scheduling collisions and package over-redemption through database-level concurrency controls.',
+      'Provided clinic administration with instantaneous visibility into daily patient queue status, staff presence, and package session consumption.',
+    ],
+    technologies: [
+      'C#',
+      'ASP.NET Core MVC',
+      'EF Core',
+      'SQL Server',
+      'AutoMapper',
+      'LINQ',
+      'Role-Based Security',
+      'HTML/CSS',
+    ],
+    architecturePatterns: [
+      '3-Tier Architecture',
+      'Repository Pattern',
+      'Service Layer Pattern',
+      'Data Transfer Objects (DTOs)',
+      'Concurrency Handling',
+    ],
+  },
+];
